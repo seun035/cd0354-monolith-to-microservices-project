@@ -4,7 +4,9 @@ services:
     build: ./udagram-api-feed
     container_name: backend-feed
     volumes:
-      - C:\Users\OluwaseunLiadi\.aws:/root/.aws
+      - type: bind
+        source: C:\Users\OluwaseunLiadi\.aws
+        target: /root/.aws
     environment:
       POSTGRES_USERNAME: $POSTGRES_USERNAME
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD 
