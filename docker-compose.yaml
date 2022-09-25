@@ -1,0 +1,45 @@
+services:
+  udagram-api-feed:
+    image: udagram-api-feed
+    build: ./udagram-api-feed
+    container_name: backend-feed
+    volumes:
+      - C:\Users\OluwaseunLiadi\.aws:/root/.aws
+    environment:
+      POSTGRES_USERNAME: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD 
+      POSTGRES_DB: $POSTGRES_DB 
+      POSTGRES_HOST: $POSTGRES_HOST
+      AWS_REGION: $AWS_REGION 
+      AWS_PROFILE: $AWS_PROFILE 
+      AWS_BUCKET: $AWS_BUCKET
+      JWT_SECRET: $JWT_SECRET
+      URL: "http://localhost:8100"
+  udagram-api-user:
+    image: udagram-api-user
+    build: ./udagram-api-user
+    container_name: backend-user
+    environment:
+      POSTGRES_USERNAME: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD 
+      POSTGRES_DB: $POSTGRES_DB 
+      POSTGRES_HOST: $POSTGRES_HOST
+      AWS_REGION: $AWS_REGION 
+      AWS_PROFILE: $AWS_PROFILE 
+      AWS_BUCKET: $AWS_BUCKET
+      JWT_SECRET: $JWT_SECRET
+      URL: "http://localhost:8100"
+  udagram-frontend:
+    image: udagram-frontend
+    build: ./udagram-frontend
+    container_name: frontend
+    ports:
+      - 8100:80
+    stdin_open: true
+    tty: true
+  udagram-reverseproxy:
+    image: reverseproxy
+    build: ./udagram-reverseproxy
+    container_name: reverseproxy
+    ports:
+      - 8080:8080

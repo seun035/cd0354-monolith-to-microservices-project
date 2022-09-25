@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+ - 14
+services:
+  - docker
+script:
+  - docker --version
+  - docker-compose build
+  - docker tag udagram-api-feed liadioluwaseun/udagram-api-feed
+  - docker tag udagram-api-user liadioluwaseun/udagram-api-user
+  - docker tag udagram-frontend liadioluwaseun/udagram-frontend
+  - docker tag reverseproxy liadioluwaseun/reverseproxy
+after_script:
+  - echo "Nothing after_script"
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push liadioluwaseun/udagram-api-feed
+  - docker push liadioluwaseun/udagram-api-user
+  - docker push liadioluwaseun/udagram-frontend
+  - docker push liadioluwaseun/reverseproxy
+
