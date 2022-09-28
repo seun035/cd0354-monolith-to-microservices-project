@@ -1,6 +1,8 @@
 import cors from 'cors';
 import express from 'express';
 import {sequelize} from './sequelize';
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 import {IndexRouter} from './controllers/v0/index.router';
 
