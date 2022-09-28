@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udagram-frontend
+spec:
+  selector:
+    matchLabels:
+      component: frontend
+  template:    
+    metadata:
+      name: udagram-frontend-deployment-spec
+      labels:
+        component: frontend
+    spec:
+      containers:
+        - name: frontend
+          image:  liadioluwaseun/udagram-frontend:latest
+          ports:
+            - containerPort: 80
+              #hostPort: 8100
+  replicas: 1
